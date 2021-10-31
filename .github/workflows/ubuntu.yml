@@ -2,9 +2,11 @@ name: CI - Ubuntu
 on: [pull_request, push]
 
 jobs:
-  ci:
+   all:
     name: 🚧Build
     runs-on: ubuntu-latest
+    env:
+      program_name: hello
 
     steps:
       - name: "🧰 Checkout"

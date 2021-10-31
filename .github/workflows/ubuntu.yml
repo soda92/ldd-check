@@ -4,7 +4,7 @@ on: [pull_request, push]
 jobs:
   ci:
     name: 🚧Build
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: "🧰 Checkout"
@@ -16,8 +16,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install \
-            build-essential cmake ninja-build \
-            fmt python
+            build-essential git cmake ninja-build
 
       - name: "🚧 Build package"
         run: |
@@ -26,8 +25,7 @@ jobs:
             -G "Ninja"
           cmake --build build
           mkdir build/dist
-          cp build/${{env.program_name}}.exe build/dist
-          python ldd-check.py -cp build/dist/${{env.program_name}}.exe
+          cp build/${{env.program_name}} build/dist
 
       - name: "📤 upload package"
         uses: actions/upload-artifact@v2

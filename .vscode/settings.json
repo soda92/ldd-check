@@ -1,0 +1,8 @@
+{
+    "cmake.configureSettings": {
+        "CMAKE_PREFIX_PATH": "D:/msys64/",
+        "CMAKE_TOOLCHAIN_FILE": "D:/src/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    },
+    "cmake.buildDirectory": "${workspaceFolder}/build/msvc/",
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools"
+}

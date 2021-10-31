@@ -1,0 +1,46 @@
+name: CI - Windows
+on: [pull_request, push]
+
+jobs:
+  build:
+    name: 🚧Build
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    env:
+      program_name: hello
+
+    steps:
+      - name: "🧰 Checkout"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: "📥 Install dependencies"
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-ninja
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-python
+            mingw-w64-x86_64-fmt
+
+      - name: "🚧 Build package"
+        run: |
+          cmake \
+            -B build \
+            -G "Ninja"
+          cmake --build build
+          mkdir build/dist
+          cp build/${{env.program_name}}.exe build/dist
+          python ldd-check.py -copy build/dist/${{env.program_name}}.exe
+
+      - name: "📤 upload package"
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifacts
+          path: build/dist

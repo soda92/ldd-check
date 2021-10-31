@@ -3,7 +3,7 @@ on: [pull_request, push]
 
 jobs:
   ci:
-    name: Build
+    name: 🚧Build
     runs-on: ubuntu-20.04
 
     steps:
@@ -13,12 +13,11 @@ jobs:
           fetch-depth: 0
 
       - name: "📥 Install dependencies"
-      run: |
+        run: |
           sudo apt update
           sudo apt install \
             build-essential cmake ninja-build \
             fmt python
-      
 
       - name: "🚧 Build package"
         run: |
